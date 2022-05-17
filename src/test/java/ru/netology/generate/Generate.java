@@ -8,7 +8,7 @@ import java.util.Locale;
 
 
 public class Generate {
-    private Generate() {
+    public Generate() {
     }
 
     @Data

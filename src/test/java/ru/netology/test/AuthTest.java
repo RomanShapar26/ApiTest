@@ -12,7 +12,8 @@ import static com.codeborne.selenide.Selenide.open;
 import static ru.netology.api.Api.signUp;
 import static ru.netology.generate.Generate.*;
 
-public class TestsApiServices {
+public class AuthTest {
+
 
     Generate.UserInfo generator = getUserInfo();
 
