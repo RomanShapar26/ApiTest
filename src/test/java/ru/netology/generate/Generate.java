@@ -19,7 +19,7 @@ public class Generate {
         private String status;
     }
 
-    private static Faker faker = new Faker(new Locale("ru"));
+    private static Faker faker = new Faker(new Locale("en"));
 
     public static UserInfo getUserInfo() {
         return new UserInfo(faker.name().username(),
