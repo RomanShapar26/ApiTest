@@ -2,6 +2,7 @@ package ru.netology.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.api.Api;
 import ru.netology.generate.Generate;
 
 import static com.codeborne.selenide.Condition.text;
@@ -15,7 +16,9 @@ import static ru.netology.generate.Generate.*;
 public class AuthTest {
 
 
-    Generate.UserInfo generator = getUserInfo();
+    Generate.UserInfo generator0 = Generate.getUserInfoActiv();
+    Generate.UserInfo generator1 = Generate.getUserInfoBlocked();
+
 
     @BeforeEach
     public void openPage() {
@@ -31,25 +34,23 @@ public class AuthTest {
     @Test
     public void shouldNotSignNotExistentUser() {
 
-        registration(generator.getLogin(), generator.getPassword());
+        registration(generator1.getLogin(), generator1.getPassword());
         $(".notification__title").shouldHave(text("Ошибка")).shouldBe(visible);
         $(".notification__content").shouldHave(text("Ошибка! Неверно указан логин или пароль")).shouldBe(visible);
     }
 
     @Test
     public void shouldNotSignIfInvalValueLogin() {
-        signUp(generator);
-        registration(getInvalidLogin(), generator.getPassword());
+        signUp(generator1);
+        registration(Generate.getInvalidLogin(), generator1.getPassword());
         $(".notification__title").shouldHave(text("Ошибка")).shouldBe(visible);
         $(".notification__content").shouldHave(text("Ошибка! Неверно указан логин или пароль")).shouldBe(visible);
     }
 
     @Test
     public void shouldNotSignBlocUser() {
-
-        generator.setStatus("blocked");
-        signUp(generator);
-        registration(generator.getLogin(), generator.getPassword());
+        Api.signUp(generator1);
+        registration(generator1.getLogin(), generator1.getPassword());
         $(".notification__title").shouldHave(text("Ошибка")).shouldBe(visible);
         $(".notification__content").shouldHave(text("Ошибка! Пользователь заблокирован")).shouldBe(visible);
     }
@@ -57,8 +58,8 @@ public class AuthTest {
     @Test
     public void shouldSignExistentUser() {
 
-        signUp(generator);
-        registration(generator.getLogin(), generator.getPassword());
+        signUp(generator0);
+        registration(generator0.getLogin(), generator0.getPassword());
         $(byText("Личный кабинет")).shouldBe(visible);
     }
 

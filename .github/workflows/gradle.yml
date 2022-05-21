@@ -16,7 +16,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Start .jar
-        run:  java -Duser.language=en -Duser.country=US -jar ./artifacts/app-ibank.jar & 
+        run:  java -Duser.language=en -Duser.country=US -jar ./artifacts/app-ibank.jar -P:profile=test &
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
